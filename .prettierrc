@@ -1,0 +1,9 @@
+{
+  "semi": false,
+  "endOfLine": "lf",
+  "editorconfig": true,
+  "arrowParens": "avoid",
+  "trailingComma": "none",
+  "pluginSearchDirs": false,
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

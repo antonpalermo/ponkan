@@ -1,8 +1,11 @@
 import Image from "next/image"
 import { db } from "database"
 
-export default async function Home() {
-  const names = await db.selectFrom("sample").select(["id", "name"]).execute()
+import { Button } from "ui"
 
-  return <div className="text-green-500">{JSON.stringify(names)}</div>
+export default async function Home() {
+  return <div>
+    <p className="text-green-500">Sample</p>
+    <Button>Sample</Button>
+  </div>
 }

@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000",
+    "dev": "dotenv -e ../../.env -- next dev --port 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "database": "workspace:*",
+    "nanoid": "^4.0.2",
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

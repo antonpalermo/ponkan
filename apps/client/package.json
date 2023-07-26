@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "ui": "workspace:*",
     "database": "workspace:*",
     "nanoid": "^4.0.2",
     "next": "^13.4.12",

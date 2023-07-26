@@ -47,6 +47,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      ui:
+        specifier: workspace:*
+        version: link:../../packages/ui
     devDependencies:
       '@types/node':
         specifier: 20.4.4
@@ -93,6 +96,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      ui:
+        specifier: workspace:*
+        version: link:../../packages/ui
     devDependencies:
       '@types/node':
         specifier: 20.4.4
@@ -181,15 +187,24 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.7
         version: 18.2.7
+      autoprefixer:
+        specifier: 10.4.14
+        version: 10.4.14(postcss@8.4.27)
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
+      postcss:
+        specifier: 8.4.27
+        version: 8.4.27
       react:
         specifier: ^17.0.2
         version: 17.0.2
+      tailwindcss:
+        specifier: 3.3.3
+        version: 3.3.3
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig

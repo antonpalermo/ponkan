@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "with-env": "dotenv -e ../../.env --"
+    "with-env": "dotenv -e .env --"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.1",

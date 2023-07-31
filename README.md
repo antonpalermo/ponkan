@@ -1,4 +1,4 @@
-# Turborepo starter
+# Ponkan e-commerce app
 
 This is an official starter Turborepo.
 

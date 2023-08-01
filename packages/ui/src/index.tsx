@@ -1,2 +1,5 @@
 export * from "./lib/utils"
 export * from "./components/button"
+export * from "./components/dialog"
+export * from "./components/command"
+export * from "./components/popover"

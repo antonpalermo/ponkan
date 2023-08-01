@@ -1,7 +1,33 @@
 "use client"
 
+import Link from "next/link"
+
+import { UrlObject } from "url"
 import { UserButton } from "@clerk/nextjs"
-import { HtmlHTMLAttributes, ReactNode } from "react"
+import { HtmlHTMLAttributes } from "react"
+
+import { Button } from "ui"
+import StoreSelector from "./store-selector"
+
+export type Navigation = {
+  label: string
+  href: string | UrlObject
+}
+
+export const MainLinks: Navigation[] = [
+  {
+    label: "Overview",
+    href: "/overview"
+  },
+  {
+    label: "Products",
+    href: "/products"
+  },
+  {
+    label: "Orders",
+    href: "/products"
+  }
+]
 
 export interface NavbarContainerProps
   extends HtmlHTMLAttributes<HTMLDivElement> {}
@@ -15,12 +41,29 @@ export function NavbarContainer({ ...props }: NavbarContainerProps) {
   )
 }
 
+export function NavLink({ href, label }: Navigation) {
+  return (
+    <Button variant="link" asChild>
+      <Link href={href}>{label}</Link>
+    </Button>
+  )
+}
+
 export default function Navbar() {
   return (
     <nav className="w-full py-4">
       <NavbarContainer>
-        <h1>Ponkan</h1>
-        <UserButton afterSignOutUrl="/"/>
+        <div className="inline-flex items-center">
+          <StoreSelector />
+          {/* Navigation Links */}
+          <div className="pl-4">
+            {MainLinks.map(link => (
+              <NavLink key={link.label} {...link} />
+            ))}
+          </div>
+        </div>
+
+        <UserButton afterSignOutUrl="/" />
       </NavbarContainer>
     </nav>
   )

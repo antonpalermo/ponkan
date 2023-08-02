@@ -1,5 +1,5 @@
 {
-  "name": "@ponkan/dashboard",
+  "name": "@ponkan/admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "20.4.4",
-    "@types/react": "^18.2.16",
+    "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "10.4.14",
     "eslint": "^7.32.0",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import Navbar from "@/components/navbar"
+import ModalProvider from "@/providers/modal-provider"
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +18,10 @@ export default function DashboardLayout({
   return (
     <main>
       <Navbar />
-      <div className="container mx-auto px-2 sm:px-4">{children}</div>
+      <div className="container mx-auto px-2 sm:px-4">
+        <ModalProvider />
+        {children}
+      </div>
     </main>
   )
 }

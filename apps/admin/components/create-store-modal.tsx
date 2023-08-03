@@ -4,14 +4,20 @@ import { Form, Formik } from "formik"
 import { Label, Input, Button, Textarea } from "ui"
 
 import Modal from "@/components/modal"
+import { useStoreModalStore } from "@/stores/useStoreModal"
 
 export default function CreateStoreModalDialog() {
+  const [isOpen, toggle] = useStoreModalStore(({ isOpen, toggle }) => [
+    isOpen,
+    toggle
+  ])
+
   return (
     <Modal
       title="Open new store"
       description="Create new store to start posting and manage products."
-      isOpen={true}
-      toggle={() => {}}
+      isOpen={isOpen}
+      toggle={toggle}
     >
       <Formik initialValues={{ name: "" }} onSubmit={() => {}}>
         {({ isSubmitting }) => (
@@ -28,8 +34,12 @@ export default function CreateStoreModalDialog() {
               />
             </div>
             <div className="mt-4 inline-flex w-full items-center justify-end space-x-3">
-              <Button variant="ghost">Cancel</Button>
-              <Button disabled={isSubmitting}>Create Store</Button>
+              <Button variant="ghost" onClick={toggle}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={isSubmitting}>
+                Create Store
+              </Button>
             </div>
           </Form>
         )}

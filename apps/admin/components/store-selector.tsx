@@ -1,7 +1,11 @@
 "use client"
 
 import { useReducer } from "react"
-import { ChevronUpDownIcon, CheckIcon } from "@heroicons/react/24/outline"
+import {
+  ChevronUpDownIcon,
+  CheckIcon,
+  PlusIcon
+} from "@heroicons/react/24/outline"
 import {
   Button,
   Command,
@@ -9,11 +13,13 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandSeparator,
   Popover,
   PopoverContent,
   PopoverTrigger,
   cn
 } from "ui"
+import { useStoreModalStore } from "@/stores/useStoreModal"
 
 enum ActionType {
   SET_IS_OPEN,
@@ -54,6 +60,7 @@ function reducer(state: StoreSelectorState, action: StoreSelectorAction) {
 }
 
 export default function StoreSelector() {
+  const toggle = useStoreModalStore(state => state.toggle)
   const [state, dispatch] = useReducer(reducer, {
     isOpen: false,
     selectedStore: ""
@@ -69,17 +76,18 @@ export default function StoreSelector() {
           variant="outline"
           role="combobox"
           aria-expanded={state.isOpen}
-          className="w-[200px] justify-between"
+          className="w-60 justify-between"
         >
           {state.selectedStore}
           <ChevronUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-60 p-0">
         <Command>
           <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
-          <CommandGroup>
+          <CommandEmpty>Store not found!</CommandEmpty>
+
+          <CommandGroup heading="My Stores">
             {DummyStoreMetadata.map(store => (
               <CommandItem
                 key={store.id}
@@ -103,6 +111,11 @@ export default function StoreSelector() {
               </CommandItem>
             ))}
           </CommandGroup>
+          <CommandSeparator />
+          <Button className="m-1" onClick={toggle}>
+            <PlusIcon className="mr-2 h-4 w-4" />
+            <span>Create new store</span>
+          </Button>
         </Command>
       </PopoverContent>
     </Popover>

@@ -2,7 +2,7 @@
 
 import { Formik, Form, FormikHelpers } from "formik"
 
-import { Label, Input, Textarea, Button } from "ui"
+import { Label, Input, Textarea, Button, useToast } from "ui"
 import { useStoreModalStore } from "@/stores/useStoreModal"
 
 import { Store } from "database"
@@ -16,6 +16,7 @@ interface StoreDetails extends Pick<Store, "name"> {
 }
 
 export default function CreateStoreForm({ hidden }: CreateStoreFormProps) {
+  const { toast } = useToast()
   const toggle = useStoreModalStore(state => state.toggle)
 
   const initialFormValue: StoreDetails = {
@@ -27,7 +28,25 @@ export default function CreateStoreForm({ hidden }: CreateStoreFormProps) {
     values: StoreDetails,
     helpers: FormikHelpers<StoreDetails>
   ) {
-    console.log(values)
+    const request = await fetch("/api/store", {
+      method: "POST",
+      body: JSON.stringify(values),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    if (!request.ok) {
+      // TODO: handle errors here
+      return
+    }
+
+    const result = await request.json()
+
+    toast({
+      variant: "default",
+      description: result.message
+    })
   }
 
   return (

@@ -38,6 +38,7 @@ export default function CreateStoreForm({ hidden }: CreateStoreFormProps) {
 
     if (!request.ok) {
       // TODO: handle errors here
+      console.log(request.statusText)
       return
     }
 

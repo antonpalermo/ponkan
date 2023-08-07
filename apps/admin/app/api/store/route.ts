@@ -2,42 +2,51 @@ import { currentUser } from "@clerk/nextjs"
 import { db, nano } from "database"
 import { NextResponse } from "next/server"
 
-import { z } from "zod"
+import joi from "joi"
 
-const StoreSchema = z.object({
-  name: z.string().min(3),
-  description: z.string().max(225)
+const storeFields = joi.object({
+  name: joi.string().max(100).required().messages({
+    "string.empty": "Store name is required",
+    "string.required": "Store name is required",
+    "string.max": "Store name is too long"
+  }),
+  description: joi.string().max(225).optional().allow("").messages({
+    "string.max": "Store description is too long"
+  })
 })
 
 export async function POST(req: Request) {
   try {
     const { emailAddresses } = await currentUser()
-    const { name, description } = await req.json()
 
+    const body = await req.json()
     const owner = emailAddresses[0].emailAddress
 
-    const isValidBody = StoreSchema.parse({
-      name,
-      description
-    })
+    const { error } = storeFields.validate(body, { abortEarly: false })
 
-    if (isValidBody) {
-      await db
-        .insertInto("store")
-        .values({
-          id: nano(),
-          name,
-          description,
-          owner,
-          dateUpdated: new Date()
-        })
-        .executeTakeFirst()
-    } else {
-      return new NextResponse("Unable to create store", { status: 400 })
+    if (error) {
+      const errors: Record<string, string> = {}
+      error.details.map(e => (errors[e.context.label] = e.message))
+      return new NextResponse(JSON.stringify(errors), { status: 400 })
     }
 
+    // if (isValidBody) {
+    //   await db
+    //     .insertInto("store")
+    //     .values({
+    //       id: nano(),
+    //       name,
+    //       description,
+    //       owner,
+    //       dateUpdated: new Date()
+    //     })
+    //     .executeTakeFirst()
+    // } else {
+    //   return new NextResponse("Unable to create store", { status: 400 })
+    // }
+
     return NextResponse.json({
-      message: `${name} successfully created`
+      message: `successfully created`
     })
   } catch (e) {
     console.log("[STORE_CREATE_ERROR] - ", e)

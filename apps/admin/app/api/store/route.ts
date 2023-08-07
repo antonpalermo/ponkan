@@ -22,7 +22,10 @@ export async function POST(req: Request) {
     const body = await req.json()
     const owner = emailAddresses[0].emailAddress
 
-    const { error } = storeFields.validate(body, { abortEarly: false })
+    const {
+      error,
+      value: { name, description }
+    } = storeFields.validate(body, { abortEarly: false })
 
     if (error) {
       const errors: Record<string, string> = {}
@@ -30,20 +33,16 @@ export async function POST(req: Request) {
       return new NextResponse(JSON.stringify(errors), { status: 400 })
     }
 
-    // if (isValidBody) {
-    //   await db
-    //     .insertInto("store")
-    //     .values({
-    //       id: nano(),
-    //       name,
-    //       description,
-    //       owner,
-    //       dateUpdated: new Date()
-    //     })
-    //     .executeTakeFirst()
-    // } else {
-    //   return new NextResponse("Unable to create store", { status: 400 })
-    // }
+    await db
+      .insertInto("store")
+      .values({
+        id: nano(),
+        name,
+        description,
+        owner,
+        dateUpdated: new Date()
+      })
+      .executeTakeFirst()
 
     return NextResponse.json({
       message: `successfully created`

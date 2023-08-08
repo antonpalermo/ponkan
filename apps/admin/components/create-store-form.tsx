@@ -68,15 +68,14 @@ export default function CreateStoreForm({ hidden }: CreateStoreFormProps) {
 
     const result = await request.json()
 
-
-    console.log(result)
-
     toast({
       variant: "default",
       description: result.message
     })
 
-    router.push(`/overview/1`)
+    console.log(result)
+
+    router.push(`/overview/${result.store_id}`)
   }
 
   return (

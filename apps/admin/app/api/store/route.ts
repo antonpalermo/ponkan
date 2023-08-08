@@ -33,21 +33,21 @@ export async function POST(req: Request) {
       return new NextResponse(JSON.stringify(errors), { status: 400 })
     }
 
-    const result = await db
+    const generatedId = nano()
+
+    await db
       .insertInto("store")
       .values({
-        id: nano(),
+        id: generatedId,
         name,
         description,
         owner,
         dateUpdated: new Date()
       })
-      .returning(["store.id", "store.name"])
-      .execute()
+      .executeTakeFirstOrThrow()
 
     return NextResponse.json({
-      // store_id,
-      // store_name,
+      store_id: generatedId,
       message: `${name} successfully created`
     })
   } catch (e) {

@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       return new NextResponse(JSON.stringify(errors), { status: 400 })
     }
 
-    await db
+    const result = await db
       .insertInto("store")
       .values({
         id: nano(),
@@ -42,10 +42,13 @@ export async function POST(req: Request) {
         owner,
         dateUpdated: new Date()
       })
-      .executeTakeFirst()
+      .returning(["store.id", "store.name"])
+      .execute()
 
     return NextResponse.json({
-      message: `successfully created`
+      // store_id,
+      // store_name,
+      message: `${name} successfully created`
     })
   } catch (e) {
     console.log("[STORE_CREATE_ERROR] - ", e)

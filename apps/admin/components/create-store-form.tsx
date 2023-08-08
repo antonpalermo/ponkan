@@ -7,6 +7,7 @@ import { useStoreModalStore } from "@/stores/useStoreModal"
 
 import { Store } from "database"
 import { SVGAttributes } from "react"
+import { useRouter } from "next/navigation"
 
 const Loader2 = ({ className }: SVGAttributes<HTMLOrSVGElement>) => {
   return (
@@ -37,6 +38,7 @@ interface StoreDetails extends Pick<Store, "name"> {
 
 export default function CreateStoreForm({ hidden }: CreateStoreFormProps) {
   const { toast } = useToast()
+  const router = useRouter()
   const toggle = useStoreModalStore(state => state.toggle)
 
   const initialFormValue: StoreDetails = {
@@ -66,10 +68,15 @@ export default function CreateStoreForm({ hidden }: CreateStoreFormProps) {
 
     const result = await request.json()
 
+
+    console.log(result)
+
     toast({
       variant: "default",
       description: result.message
     })
+
+    router.push(`/overview/1`)
   }
 
   return (

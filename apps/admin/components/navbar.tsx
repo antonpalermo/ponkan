@@ -8,6 +8,7 @@ import { HtmlHTMLAttributes } from "react"
 
 import { Button } from "ui"
 import StoreSelector from "./store-selector"
+import { useParams, usePathname } from "next/navigation"
 
 export type Navigation = {
   label: string
@@ -42,9 +43,11 @@ export function NavbarContainer({ ...props }: NavbarContainerProps) {
 }
 
 export function NavLink({ href, label }: Navigation) {
+  const { store_id } = useParams()
+
   return (
     <Button variant="link" asChild>
-      <Link href={href}>{label}</Link>
+      <Link href={`${href}/${store_id}`}>{label}</Link>
     </Button>
   )
 }

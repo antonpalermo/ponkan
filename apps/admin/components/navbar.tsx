@@ -1,32 +1,28 @@
-import { UserButton } from "@clerk/nextjs"
-import { HtmlHTMLAttributes } from "react"
+import { UserButton, currentUser } from "@clerk/nextjs"
 
 import NavbarLinks from "@/components/navbar-links"
 import StoreSelector from "@/components/store-selector"
+import { db } from "database"
 
-export interface NavbarContainerProps
-  extends HtmlHTMLAttributes<HTMLDivElement> {}
+export default async function Navbar() {
+  const { emailAddresses } = await currentUser()
+  const owner = emailAddresses[0].emailAddress
 
-export function NavbarContainer({ ...props }: NavbarContainerProps) {
-  return (
-    <div
-      className="container mx-auto inline-flex items-center justify-between px-2 sm:px-4"
-      {...props}
-    />
-  )
-}
+  const stores = await db
+    .selectFrom("store")
+    .where("store.owner", "=", owner)
+    .select(["store.id", "store.name"])
+    .execute()
 
-export default function Navbar() {
   return (
     <nav className="w-full py-4">
-      <NavbarContainer>
-        <div className="inline-flex items-center space-x-4">
-          <StoreSelector />
+      <div className="container mx-auto inline-flex items-center justify-between px-2 sm:px-4">
+        <div className="inline-flex items-center space-x-5">
+          <StoreSelector stores={stores} />
           <NavbarLinks />
         </div>
-
         <UserButton afterSignOutUrl="/" />
-      </NavbarContainer>
+      </div>
     </nav>
   )
 }

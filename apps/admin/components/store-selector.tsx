@@ -1,6 +1,6 @@
 "use client"
 
-import { useReducer } from "react"
+import { useState } from "react"
 import {
   ChevronUpDownIcon,
   CheckIcon,
@@ -13,72 +13,42 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandSeparator,
   Popover,
   PopoverContent,
   PopoverTrigger,
   cn
 } from "ui"
 import { useStoreModalStore } from "@/stores/useStoreModal"
+import { useParams, useRouter } from "next/navigation"
 
-enum ActionType {
-  SET_IS_OPEN,
-  SET_SELECTED_STORE
+export interface StoreSelectorProps {
+  stores: { id: string; name: string }[]
 }
 
-type StoreSelectorAction =
-  | {
-      type: ActionType.SET_IS_OPEN
-    }
-  | { type: ActionType.SET_SELECTED_STORE; payload: string }
+export default function StoreSelector({ stores }: StoreSelectorProps) {
+  const router = useRouter()
+  const params = useParams()
 
-type StoreSelectorState = {
-  isOpen: boolean
-  selectedStore: string
-}
+  const [open, setOpen] = useState<boolean>()
 
-const DummyStoreMetadata = [
-  {
-    id: "WbNz5CcPR7pehgn",
-    name: "Ponkan"
-  },
-  {
-    id: "EE4uCtfkV3zfzSs",
-    name: "Prime"
-  }
-]
-
-function reducer(state: StoreSelectorState, action: StoreSelectorAction) {
-  switch (action.type) {
-    case ActionType.SET_IS_OPEN:
-      return { ...state, isOpen: !state.isOpen }
-    case ActionType.SET_SELECTED_STORE:
-      return { ...state, selectedStore: action.payload }
-    default:
-      return state
-  }
-}
-
-export default function StoreSelector() {
   const toggle = useStoreModalStore(state => state.toggle)
-  const [state, dispatch] = useReducer(reducer, {
-    isOpen: false,
-    selectedStore: ""
-  })
+  const currentStore = stores.find(store => store.id === params.store_id)
+
+  function onStoreSelect(store: { id: string; name: string }) {
+    setOpen(false)
+    router.push(`/overview/${store.id}`)
+  }
 
   return (
-    <Popover
-      open={state.isOpen}
-      onOpenChange={() => dispatch({ type: ActionType.SET_IS_OPEN })}
-    >
+    <Popover open={open} onOpenChange={open => setOpen(open)}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
-          aria-expanded={state.isOpen}
+          aria-expanded={open}
           className="w-60 justify-between"
         >
-          {state.selectedStore}
+          {currentStore.name}
           <ChevronUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -88,21 +58,17 @@ export default function StoreSelector() {
           <CommandEmpty>Store not found!</CommandEmpty>
 
           <CommandGroup heading="My Stores">
-            {DummyStoreMetadata.map(store => (
+            {stores.map(store => (
               <CommandItem
                 key={store.id}
-                onSelect={currentValue => {
-                  dispatch({
-                    type: ActionType.SET_SELECTED_STORE,
-                    payload: currentValue
-                  })
-                  dispatch({ type: ActionType.SET_IS_OPEN })
+                onSelect={() => {
+                  onStoreSelect(store)
                 }}
               >
                 <CheckIcon
                   className={cn(
                     "mr-2 h-4 w-4",
-                    state.selectedStore === store.name
+                    currentStore.name === store.name
                       ? "opacity-100"
                       : "opacity-0"
                   )}
@@ -111,7 +77,6 @@ export default function StoreSelector() {
               </CommandItem>
             ))}
           </CommandGroup>
-          <CommandSeparator />
           <Button className="m-1" onClick={toggle}>
             <PlusIcon className="mr-2 h-4 w-4" />
             <span>Create new store</span>

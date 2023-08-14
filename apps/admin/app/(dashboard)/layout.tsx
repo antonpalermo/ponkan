@@ -20,19 +20,19 @@ export default async function DashboardLayout({
   children: React.ReactNode
 }) {
   const user = (await currentUser()).emailAddresses[0]
-  const store = await db
+  const stores = await db
     .selectFrom("store")
     .select(["id", "name", "description", "owner"])
     .where("store.owner", "=", user.emailAddress)
-    .executeTakeFirst()
+    .execute()
 
-  if (!store) {
+  if (!stores) {
     redirect("/")
   }
 
   return (
     <main>
-      <Navbar />
+      <Navbar stores={stores} />
       <div className="container mx-auto px-2 sm:px-4">
         <ModalProvider />
         {children}

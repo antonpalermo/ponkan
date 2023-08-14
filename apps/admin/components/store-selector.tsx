@@ -32,11 +32,11 @@ export default function StoreSelector({ stores }: StoreSelectorProps) {
   const [open, setOpen] = useState<boolean>()
 
   const toggle = useStoreModalStore(state => state.toggle)
-  const currentStore = stores.find(store => store.id === params.store_id)
+  const currentStore = stores.find(store => store.id === params.storeId)
 
   function onStoreSelect(store: { id: string; name: string }) {
     setOpen(false)
-    router.push(`/overview/${store.id}`)
+    router.push(`/${store.id}`)
   }
 
   return (

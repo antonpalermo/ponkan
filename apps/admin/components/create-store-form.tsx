@@ -75,7 +75,7 @@ export default function CreateStoreForm({ hidden }: CreateStoreFormProps) {
 
     console.log(result)
 
-    router.push(`/overview/${result.store_id}`)
+    router.push(`/${result.storeId}`)
   }
 
   return (

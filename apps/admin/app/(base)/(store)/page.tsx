@@ -12,7 +12,7 @@ export default async function StoreSetupPage() {
     .executeTakeFirst()
 
   if (store) {
-    redirect(`/overview/${store.id}`)
+    redirect(`/${store.id}`)
   }
 
   return (

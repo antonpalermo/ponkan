@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       .executeTakeFirstOrThrow()
 
     return NextResponse.json({
-      store_id: generatedId,
+      storeId: generatedId,
       message: `${name} successfully created`
     })
   } catch (e) {

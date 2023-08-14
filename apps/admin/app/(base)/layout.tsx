@@ -17,7 +17,7 @@ export default async function BaseLayout({ children }: BaseLayoutProps) {
     .executeTakeFirst()
 
   if (store) {
-    redirect(`/overview/${store.id}`)
+    redirect(`/${store.id}`)
   }
 
   return <Fragment>{children}</Fragment>

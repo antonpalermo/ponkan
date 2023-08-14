@@ -8,18 +8,18 @@ export default function NavbarLinks() {
   const params = useParams()
   const pathname = usePathname()
 
-  const storeId = params.store_id
+  const storeId = params.storeId
 
   const routes = [
     {
-      path: `/overview/${storeId}`,
-      label: "Overview",
-      isActive: pathname === `/overview/${storeId}`
+      path: `/${storeId}`,
+      label: "Dashboard",
+      isActive: pathname === `/${storeId}`
     },
     {
-      path: `/products/${storeId}`,
+      path: `/${storeId}/products`,
       label: "Products",
-      isActive: pathname === `/products/${storeId}`
+      isActive: pathname === `/${storeId}/products`
     }
   ]
 

@@ -13,13 +13,27 @@ datasource db {
 }
 
 model Store {
-  id          String   @id @unique @db.VarChar(25)
-  name        String   @unique
-  description String?  @db.VarChar(225)
+  id          String     @id @unique @db.VarChar(25)
+  name        String     @unique
+  description String?    @db.VarChar(225)
   owner       String
-  dateCreated DateTime @default(now())
-  dateUpdated DateTime @updatedAt
+  dateCreated DateTime   @default(now())
+  dateUpdated DateTime   @updatedAt
+  products    Products[]
 
   @@index([id])
   @@map("store")
+}
+
+model Products {
+  id          String   @id @unique @db.VarChar(25)
+  name        String
+  description String
+  store       Store    @relation(fields: [storeId], references: [id])
+  storeId     String   @db.VarChar(25)
+  dateCreated DateTime @default(now())
+
+  @@index([id])
+  @@index([storeId])
+  @@map("products")
 }

@@ -19,7 +19,7 @@ export default function NavbarLinks() {
     {
       path: `/${storeId}/products`,
       label: "Products",
-      isActive: pathname === `/${storeId}/products`
+      isActive: pathname.includes(`/products`)
     }
   ]
 

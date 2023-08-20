@@ -1,4 +1,12 @@
+import Link from "next/link"
+import { Metadata } from "next"
+
 import { db } from "database"
+import { Button } from "ui"
+
+export const metadata: Metadata = {
+  title: "My Products"
+}
 
 export default async function ProductsPage({
   params
@@ -15,7 +23,9 @@ export default async function ProductsPage({
     <div>
       <h1>Products</h1>
       <p>All products currently on stock</p>
-      {JSON.stringify(products)}
+      <Button asChild>
+        <Link href="products/new">Add product</Link>
+      </Button>
     </div>
   )
 }

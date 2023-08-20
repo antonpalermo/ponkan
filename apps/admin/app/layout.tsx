@@ -8,13 +8,6 @@ import { Toaster } from "ui"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  title: {
-    template: "Ponkan - %s",
-    default: "Ponkan"
-  }
-}
-
 export default function RootLayout({
   children
 }: {

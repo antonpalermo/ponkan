@@ -3,18 +3,20 @@
   "version": "0.0.0",
   "main": "./src/index.ts",
   "scripts": {
-    "db:push": "dotenv -e ../../.env -- prisma db push"
+    "db:reset": "pnpm dotenv prisma migrate reset",
+    "db:push": "pnpm dotenv prisma db push"
   },
   "dependencies": {
-    "@planetscale/database": "^1.9.0",
+    "@planetscale/database": "^1.11.0",
+    "@prisma/client": "5.2.0",
     "kysely": "^0.26.1",
-    "kysely-planetscale": "^1.3.0",
+    "kysely-planetscale": "^1.4.0",
     "nanoid": "^4.0.2",
-    "prisma-kysely": "^1.5.0"
+    "prisma-kysely": "^1.6.0"
   },
   "devDependencies": {
     "@types/node": "20.4.4",
-    "prisma": "^5.0.0",
+    "prisma": "^5.2.0",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5"
   }

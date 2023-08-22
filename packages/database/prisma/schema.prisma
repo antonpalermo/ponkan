@@ -1,37 +1,37 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator kysely {
-  provider = "prisma-kysely"
-  output   = "../src"
+generator client {
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider     = "mysql"
-  url          = env("DATABASE_URL")
   relationMode = "prisma"
+  url          = env("DATABASE_URL")
 }
 
-model Store {
-  id          String     @id @unique @db.VarChar(25)
+model Stores {
+  id          String     @id @unique @default(cuid())
   name        String     @unique
   description String?    @db.VarChar(225)
   owner       String
-  dateCreated DateTime   @default(now())
-  dateUpdated DateTime   @updatedAt
+  dateCreated DateTime   @default(now()) @map("created_at")
+  dateUpdated DateTime   @updatedAt @map("updated_at")
   products    Products[]
 
   @@index([id])
-  @@map("store")
+  @@map("stores")
 }
 
 model Products {
-  id          String   @id @unique @db.VarChar(25)
+  id          String   @id @unique @default(cuid())
   name        String
   description String
-  store       Store    @relation(fields: [storeId], references: [id])
+  store       Stores   @relation(fields: [storeId], references: [id])
   storeId     String   @db.VarChar(25)
-  dateCreated DateTime @default(now())
+  dateCreated DateTime @default(now()) @map("created_at")
+  dateUpdated DateTime @updatedAt @map("updated_at")
 
   @@index([id])
   @@index([storeId])

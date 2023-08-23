@@ -1,15 +1,13 @@
 import CreateStoreForm from "@/components/create-store-form"
 import { currentUser } from "@clerk/nextjs"
-import { db } from "database"
+import { prisma } from "database"
 import { redirect } from "next/navigation"
 
 export default async function StoreSetupPage() {
   const user = (await currentUser()).emailAddresses[0]
-  const store = await db
-    .selectFrom("store")
-    .select(["id", "name", "description", "owner"])
-    .where("store.owner", "=", user.emailAddress)
-    .executeTakeFirst()
+  const store = await prisma.stores.findFirst({
+    where: { owner: user.emailAddress }
+  })
 
   if (store) {
     redirect(`/${store.id}`)

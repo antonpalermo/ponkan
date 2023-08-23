@@ -5,7 +5,7 @@ import { currentUser } from "@clerk/nextjs"
 import Navbar from "@/components/navbar"
 import ModalProvider from "@/providers/modal-provider"
 
-import { db, Store } from "database"
+import { prisma } from "database"
 
 export const metadata: Metadata = {
   title: {
@@ -20,11 +20,9 @@ export default async function DashboardLayout({
   children: React.ReactNode
 }) {
   const user = (await currentUser()).emailAddresses[0]
-  const stores = await db
-    .selectFrom("store")
-    .select(["id", "name", "description", "owner"])
-    .where("store.owner", "=", user.emailAddress)
-    .execute()
+  const stores = await prisma.stores.findMany({
+    where: { owner: user.emailAddress }
+  })
 
   if (!stores) {
     redirect("/")

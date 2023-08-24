@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs"
-import { db, nano } from "database"
+import { prisma } from "database"
 import { NextResponse } from "next/server"
 
 import joi from "joi"
@@ -33,22 +33,17 @@ export async function POST(req: Request) {
       return new NextResponse(JSON.stringify(errors), { status: 400 })
     }
 
-    const generatedId = nano()
-
-    await db
-      .insertInto("store")
-      .values({
-        id: generatedId,
+    const store = await prisma.stores.create({
+      data: {
         name,
         description,
-        owner,
-        dateUpdated: new Date()
-      })
-      .executeTakeFirstOrThrow()
+        owner
+      }
+    })
 
     return NextResponse.json({
-      storeId: generatedId,
-      message: `${name} successfully created`
+      storeId: store.id,
+      message: `${store.name} successfully created`
     })
   } catch (e) {
     console.log("[STORE_CREATE_ERROR] - ", e)

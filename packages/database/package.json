@@ -1,21 +1,32 @@
 {
   "name": "database",
   "version": "0.0.0",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
-    "db:push": "dotenv -e ../../.env -- prisma db push"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "db:generate": "prisma generate",
+    "db:reset": "pnpm dotenv prisma migrate reset",
+    "db:studio": "pnpm dotenv prisma studio",
+    "db:push": "pnpm dotenv prisma db push",
+    "prebuilt": "pnpm db:generate",
+    "predev": "pnpm db:generate",
+    "lint": "eslint \"src/**/*.ts\""
   },
   "dependencies": {
-    "@planetscale/database": "^1.9.0",
-    "kysely": "^0.26.1",
-    "kysely-planetscale": "^1.3.0",
-    "nanoid": "^4.0.2",
-    "prisma-kysely": "^1.5.0"
+    "@prisma/client": "5.2.0"
   },
   "devDependencies": {
     "@types/node": "20.4.4",
-    "prisma": "^5.0.0",
+    "eslint-config-custom": "workspace:*",
+    "prisma": "^5.2.0",
     "tsconfig": "workspace:*",
+    "tsup": "^7.2.0",
     "typescript": "^4.9.5"
   }
 }

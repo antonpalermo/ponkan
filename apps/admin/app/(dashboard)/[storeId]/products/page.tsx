@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { Metadata } from "next"
 
-import { db } from "database"
 import { Button } from "ui"
 
 export const metadata: Metadata = {
@@ -13,12 +12,6 @@ export default async function ProductsPage({
 }: {
   params: { storeId: string }
 }) {
-  const products = await db
-    .selectFrom("products")
-    .where("products.storeId", "=", params.storeId)
-    .selectAll()
-    .execute()
-
   return (
     <div>
       <h1>Products</h1>

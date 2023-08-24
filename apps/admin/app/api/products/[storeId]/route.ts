@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { db } from "database"
+import { prisma } from "database"
 
 export async function GET(
   request: Request,
@@ -14,10 +14,9 @@ export async function GET(
   }
 
   try {
-    const products = await db
-      .selectFrom("products")
-      .where("products.storeId", "=", params.storeId)
-      .execute()
+    const products = await prisma.products.findMany({
+      where: { storeId: params.storeId }
+    })
 
     return NextResponse.json(products, { status: 200 })
   } catch (e) {

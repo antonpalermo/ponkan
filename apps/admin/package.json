@@ -10,23 +10,23 @@
     "with-env": "dotenv -e .env --"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.23.1",
+    "@clerk/nextjs": "^4.24.1",
     "@heroicons/react": "^2.0.18",
     "@uploadthing/react": "^5.3.0",
     "database": "workspace:*",
-    "formik": "^2.4.3",
-    "joi": "^17.9.2",
-    "next": "^13.4.12",
+    "formik": "^2.4.5",
+    "joi": "^17.10.2",
+    "next": "^13.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "ui": "workspace:*",
     "uploadthing": "^5.3.3",
-    "zustand": "^4.4.0"
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/node": "20.4.4",
-    "@types/react": "^18.2.18",
+    "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "10.4.14",
     "eslint-config-custom": "workspace:*",

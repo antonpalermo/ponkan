@@ -12,13 +12,16 @@
   "dependencies": {
     "@clerk/nextjs": "^4.24.1",
     "@heroicons/react": "^2.0.18",
+    "@uploadthing/react": "^5.3.0",
     "database": "workspace:*",
     "formik": "^2.4.5",
     "joi": "^17.10.2",
     "next": "^13.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "ui": "workspace:*",
+    "uploadthing": "^5.3.3",
     "zustand": "^4.4.1"
   },
   "devDependencies": {

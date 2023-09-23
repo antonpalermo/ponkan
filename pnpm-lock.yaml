@@ -163,16 +163,10 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.400.0
         version: 3.417.0
-      busboy:
-        specifier: ^1.6.0
-        version: 1.6.0
       express:
         specifier: ^4.18.2
         version: 4.18.2
     devDependencies:
-      '@types/busboy':
-        specifier: ^1.5.0
-        version: 1.5.1
       '@types/express':
         specifier: ^4.17.17
         version: 4.17.17
@@ -2859,12 +2853,6 @@ packages:
     dependencies:
       '@types/connect': 3.4.35
       '@types/node': 20.4.4
-
-  /@types/busboy@1.5.1:
-    resolution: {integrity: sha512-JAymE2skNionWnBUwby3MatzPUw4D/6/7FX1qxBXLzmRnFxmqU0luIof7om0I8R3B/rSr9FKUnFCqxZ/NeGbrw==}
-    dependencies:
-      '@types/node': 20.4.4
-    dev: true
 
   /@types/connect@3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}

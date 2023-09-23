@@ -2,7 +2,6 @@ import express, { Application, Request, Response, Router } from "express"
 
 import { S3Client } from "@aws-sdk/client-s3"
 import { s3Config } from "./config"
-import busboy from "busboy"
 
 const main = async () => {
   const app: Application = express()
@@ -19,7 +18,6 @@ const main = async () => {
   })
 
   storeRoutes.post("/:storeId/upload", async (req: Request, res: Response) => {
-    const bb = busboy({ headers: req.headers })
     return res.status(200).json({ storeId: req.params.storeId })
   })
 

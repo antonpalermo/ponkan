@@ -1,5 +1,6 @@
 const express = require("express")
-const multer = require("multer")
+
+const productRoutes = require("./routes/products.route")
 
 async function main() {
   // initialize express app
@@ -7,11 +8,13 @@ async function main() {
   const port = process.env.PORT || 5000
   // urlencoded use to parse formdata
   app.use(express.urlencoded({ extended: true }))
-
-  app.get("/", (_, res) => {
-    return res.status(200).json({ status: "ok" })
-  })
-
+  // base router
+  const baseRoute = express.Router()
+  // use all products routes
+  baseRoute.use("/products", productRoutes)
+  // consume base route
+  app.use("/api", baseRoute)
+  // start server and listen to request
   app.listen(port, () => {
     console.log(`server listening on http://localhost:${port}`)
   })

@@ -1,16 +1,19 @@
 const express = require("express")
 const multer = require("multer")
 
-const router = express.Router()
-const upload = multer()
+const handlers = require("../handlers/products.handler")
+const middlewares = require("../middlewares/products.middleware")
 
-router.use(
+const router = express.Router()
+
+router.post(
   "/:storeId/:productId/upload",
-  upload.array("images"),
-  async (req, res) => {
-    console.log(req.files)
-    return res.status(200).json({ message: "sample post" })
-  }
+  // multer middleware.
+  multer().array("images"),
+  // validates if image mime type is allowed to be processed.
+  middlewares.validateMimeType,
+  // upload handler
+  handlers.upload
 )
 
 module.exports = router

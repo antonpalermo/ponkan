@@ -1,3 +1,4 @@
+const { prisma } = require("database")
 const { generateObjectFilename, putS3Object } = require("../libs/helpers")
 
 const client = require("../libs/s3-client")
@@ -9,6 +10,15 @@ async function upload(req, res) {
       const filename = generateObjectFilename()
       // upload the image to s3
       await putS3Object(client, filename, file.buffer)
+      //
+      await prisma.images.create({
+        data: {
+          name: filename,
+          product: {
+            connect: { id: req.params.productId }
+          }
+        }
+      })
       // console log the message that the file is uploaded
       console.log(file.originalname, "uploaded")
     }

@@ -29,6 +29,7 @@ model Products {
   name        String
   description String
   properties  Properties[]
+  images      Images[]
   store       Stores       @relation(fields: [storeId], references: [id])
   storeId     String       @db.VarChar(25)
   dateCreated DateTime     @default(now()) @map("created_at")
@@ -50,4 +51,16 @@ model Properties {
   @@index([id])
   @@index([productId])
   @@map("properties")
+}
+
+model Images {
+  id          String    @id @unique @default(cuid())
+  name        String
+  product     Products? @relation(fields: [productId], references: [id])
+  productId   String?
+  dateCreated DateTime  @default(now()) @map("created_at")
+
+  @@index([id])
+  @@index([productId])
+  @@map("product_images")
 }

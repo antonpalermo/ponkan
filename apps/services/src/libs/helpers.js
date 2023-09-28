@@ -19,8 +19,8 @@ async function putS3Object(client, filename, buffer) {
     const command = new PutObjectCommand(params)
     await client.send(command)
   } catch (e) {
-    console.log(e)
-    throw new Error('error: unable to "PUT" object to s3')
+    console.log(e.message)
+    throw new Error("error uploading images to s3")
   }
 }
 

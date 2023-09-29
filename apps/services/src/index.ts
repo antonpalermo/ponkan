@@ -1,6 +1,5 @@
-const express = require("express")
-
-const productRoutes = require("./routes/products.route")
+import express from "express"
+import productRoutes from "./routes/products.route"
 
 async function main() {
   // initialize express app

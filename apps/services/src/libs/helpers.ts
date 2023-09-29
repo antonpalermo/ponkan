@@ -1,14 +1,16 @@
-const { customAlphabet } = require("nanoid")
-const { PutObjectCommand } = require("@aws-sdk/client-s3")
+import { S3Client } from "@aws-sdk/client-s3"
 
-const config = require("./config")
+import { customAlphabet } from "nanoid"
+import { PutObjectCommand } from "@aws-sdk/client-s3"
+
+import config from "./config"
 
 function generateObjectFilename(lenght = 25) {
   const id = customAlphabet(config.nanoAlphabet, lenght)
   return id()
 }
 
-async function putS3Object(client, filename, buffer) {
+async function putS3Object(client: S3Client, filename: string, buffer: Buffer) {
   try {
     const params = {
       Bucket: config.name,
@@ -19,7 +21,6 @@ async function putS3Object(client, filename, buffer) {
     const command = new PutObjectCommand(params)
     await client.send(command)
   } catch (e) {
-    console.log(e.message)
     throw new Error("error uploading images to s3")
   }
 }

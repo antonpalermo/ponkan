@@ -6,4 +6,4 @@ const config = {
   nanoAlphabet: process.env.NANOID_CHARACTERS
 }
 
-module.exports = config
+export default config

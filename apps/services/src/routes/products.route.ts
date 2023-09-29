@@ -1,8 +1,8 @@
-const express = require("express")
-const multer = require("multer")
+import express from "express"
+import multer from "multer"
 
-const handlers = require("../handlers/products.handler")
-const middlewares = require("../middlewares/products.middleware")
+import handlers from "../handlers/products.handler"
+import middlewares from "../middlewares/products.middleware"
 
 const router = express.Router()
 

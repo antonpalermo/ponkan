@@ -1,11 +1,19 @@
+import { Request, Response } from "express"
+
 const { prisma } = require("database")
 const { generateObjectFilename, putS3Object } = require("../libs/helpers")
 
 const client = require("../libs/s3-client")
 
-async function upload(req, res) {
+async function upload(req: Request, res: Response) {
+  const files = req.files
+
+  if (files) {
+    throw new Error("No files attached")
+  }
+
   try {
-    for (file of req.files) {
+    for (const file of files) {
       // generate filename
       const filename = generateObjectFilename()
       // upload the image to s3
@@ -26,7 +34,7 @@ async function upload(req, res) {
     // return to client that the file is uploaded
     return res.status(200).json({ message: "upload ok" })
   } catch (e) {
-    return res.status(500).json({ message: e.message })
+    return res.status(500).json({ message: "unable to upload image to s3" })
   }
 }
 

@@ -1,15 +1,15 @@
 import { Request, Response } from "express"
 
-const { prisma } = require("database")
-const { generateObjectFilename, putS3Object } = require("../libs/helpers")
+import { prisma } from "database"
+import { generateObjectFilename, putS3Object } from "@src/libs/helpers"
 
-const client = require("../libs/s3-client")
+import client from "../libs/s3-client"
 
 async function upload(req: Request, res: Response) {
-  const files = req.files
+  const files = req.files as Express.Multer.File[]
 
-  if (files) {
-    throw new Error("No files attached")
+  if (!files) {
+    throw new Error("No files attached!")
   }
 
   try {
@@ -38,4 +38,4 @@ async function upload(req: Request, res: Response) {
   }
 }
 
-module.exports = { upload }
+export default { upload }

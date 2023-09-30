@@ -3,14 +3,18 @@ import { S3Client } from "@aws-sdk/client-s3"
 import { customAlphabet } from "nanoid"
 import { PutObjectCommand } from "@aws-sdk/client-s3"
 
-import config from "./config"
+import config from "@src/libs/config"
 
-function generateObjectFilename(lenght = 25) {
-  const id = customAlphabet(config.nanoAlphabet, lenght)
+export function generateObjectFilename(lenght = 25) {
+  const id = customAlphabet(config.nanoAlphabet!, lenght)
   return id()
 }
 
-async function putS3Object(client: S3Client, filename: string, buffer: Buffer) {
+export async function putS3Object(
+  client: S3Client,
+  filename: string,
+  buffer: Buffer
+) {
   try {
     const params = {
       Bucket: config.name,
@@ -24,5 +28,3 @@ async function putS3Object(client: S3Client, filename: string, buffer: Buffer) {
     throw new Error("error uploading images to s3")
   }
 }
-
-module.exports = { putS3Object, generateObjectFilename }

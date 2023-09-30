@@ -1,5 +1,5 @@
 import express from "express"
-import productRoutes from "./routes/products.route"
+import productRoutes from "@src/routes/products.route"
 
 async function main() {
   // initialize express app

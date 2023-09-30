@@ -1,10 +1,10 @@
-import express from "express"
+import express, { Router } from "express"
 import multer from "multer"
 
-import handlers from "../handlers/products.handler"
-import middlewares from "../middlewares/products.middleware"
+import handlers from "@src/handlers/products.handler"
+import middlewares from "@src/middlewares/products.middleware"
 
-const router = express.Router()
+const router: Router = express.Router()
 
 router.post(
   "/:storeId/:productId/upload",
@@ -16,4 +16,4 @@ router.post(
   handlers.upload
 )
 
-module.exports = router
+export default router

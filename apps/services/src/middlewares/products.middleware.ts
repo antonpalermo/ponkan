@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express"
 import { validateBufferMIMEType } from "validate-image-type"
 
-export async function validateMimeType(
+async function validateMimeType(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const files = req.files as Express.Multer.File[]
 
-  if (files) {
+  if (!files) {
     throw new Error("No files attached")
   }
 
@@ -27,3 +27,5 @@ export async function validateMimeType(
 
   next()
 }
+
+export default { validateMimeType }

@@ -1,9 +1,17 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "tsconfig/node16.config.json",
+  "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "target": "es2016",
-    "outDir": "./build"
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@node/*": ["node_modules/*"]
+    }
   },
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }

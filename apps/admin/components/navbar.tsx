@@ -9,8 +9,8 @@ export interface NavbarProps {
 
 export default async function Navbar({ stores }: NavbarProps) {
   return (
-    <nav className="w-full py-4">
-      <div className="container mx-auto inline-flex items-center justify-between px-2 sm:px-4">
+    <nav className="py-4">
+      <div className="container mx-auto flex justify-between px-2 sm:px-4">
         <div className="inline-flex items-center space-x-5">
           <StoreSelector stores={stores} />
           <NavbarLinks />

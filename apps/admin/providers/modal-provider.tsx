@@ -1,7 +1,7 @@
 "use client"
 
-import CreateStoreModalDialog from "@/components/create-store-modal"
 import { useEffect, useState } from "react"
+import CreateStoreModalDialog from "@/components/stores/create-modal"
 
 export interface ModalProviderProps {}
 

@@ -1,7 +1,7 @@
 import { UserButton, currentUser } from "@clerk/nextjs"
 
 import NavbarLinks from "@/components/navbar-links"
-import StoreSelector from "@/components/store-selector"
+import StoreSelector from "@/components/stores/store-selector"
 
 export interface NavbarProps {
   stores: { id: string; name: string }[]

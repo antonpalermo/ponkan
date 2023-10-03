@@ -1,4 +1,4 @@
-import CreateStoreForm from "@/components/create-store-form"
+import CreateStoreForm from "@/components/stores/create-form"
 import { currentUser } from "@clerk/nextjs"
 import { prisma } from "database"
 import { redirect } from "next/navigation"

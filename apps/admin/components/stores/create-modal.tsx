@@ -1,7 +1,7 @@
 "use client"
 
 import Modal from "@/components/modal"
-import CreateStoreForm from "@/components/create-store-form"
+import CreateStoreForm from "@/components/stores/create-form"
 
 import { useStoreModalStore } from "@/stores/useStoreModal"
 

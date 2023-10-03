@@ -5,7 +5,7 @@ import { Formik, Form, FormikHelpers } from "formik"
 import { Label, Input, Textarea, Button, useToast, cn } from "ui"
 import { useStoreModalStore } from "@/stores/useStoreModal"
 
-import { Store } from "database"
+import { Stores } from "database"
 import { SVGAttributes } from "react"
 import { useRouter } from "next/navigation"
 
@@ -32,7 +32,7 @@ export interface CreateStoreFormProps {
   hidden?: boolean
 }
 
-interface StoreDetails extends Pick<Store, "name"> {
+interface StoreDetails extends Pick<Stores, "name"> {
   description?: string
 }
 

@@ -2,6 +2,7 @@ export * from "class-variance-authority"
 
 export * from "./lib/utils"
 
+export * from "./components/form"
 export * from "./components/label"
 export * from "./components/input"
 export * from "./components/button"

@@ -1,63 +1,67 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import { Form, Formik, FormikHelpers } from "formik"
 
-import { Button, Input, Label, Textarea } from "ui"
-
-interface ProductDetails {
-  name: string
-  description: string
-}
+import {
+  Button,
+  Input,
+  Label,
+  Textarea,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormDescription,
+  FormMessage
+} from "ui"
+import { useForm } from "react-hook-form"
 
 export default function ProductForm() {
   const params = useParams()
-  const initialData: ProductDetails = {
-    name: "",
-    description: ""
-  }
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      description: ""
+    }
+  })
 
-  async function onSubmit(
-    values: ProductDetails,
-    helpers: FormikHelpers<ProductDetails>
-  ) {
-    const request = await fetch(`/api/products/${params.storeId}/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(values)
-    })
-
-    console.log(request)
+  async function onSubmit(value: any) {
+    console.log("triggered", value)
   }
 
   return (
-    <Formik initialValues={initialData} onSubmit={onSubmit}>
-      {({ values, handleChange, isSubmitting }) => (
-        <Form>
-          <div>
-            <Label>Product Name</Label>
-            <Input
-              id="name"
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              placeholder="Product name"
-            />
-          </div>
-          <div>
-            <Label>Description</Label>
-            <Textarea
-              id="description"
-              name="description"
-              onChange={handleChange}
-              placeholder="Description"
-            />
-          </div>
-          <Button type="submit">Create</Button>
-        </Form>
-      )}
-    </Formik>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea {...field} />
+              </FormControl>
+              <FormDescription>Product description</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Create</Button>
+      </form>
+    </Form>
   )
 }

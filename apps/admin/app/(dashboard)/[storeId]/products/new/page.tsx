@@ -1,7 +1,7 @@
 import { Metadata } from "next"
+
+import Shell from "@/components/shell"
 import ProductForm from "@/components/products/product-form"
-import { UploadButton } from "@/lib/uploadthing"
-import ProductImageDropzone from "@/components/products/dropzone"
 
 export const metadata: Metadata = {
   title: "Add new products"
@@ -9,10 +9,14 @@ export const metadata: Metadata = {
 
 export default async function NewProductPage() {
   return (
-    <div>
-      <h1>Add new product</h1>
-      <ProductForm />
-      <ProductImageDropzone />
-    </div>
+    <Shell>
+      <Shell.Heading>New Product</Shell.Heading>
+      <p className="font-medium text-gray-500">
+        Provide the required details to create a new product
+      </p>
+      <div className="my-5">
+        <ProductForm />
+      </div>
+    </Shell>
   )
 }

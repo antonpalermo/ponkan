@@ -11,12 +11,12 @@ export default async function NewProductPage() {
   return (
     <Shell>
       <Shell.Heading>New Product</Shell.Heading>
-      <p className="font-medium text-gray-500">
+      <Shell.Description>
         Provide the required details to create a new product
-      </p>
-      <div className="my-5">
+      </Shell.Description>
+      <Shell.Content>
         <ProductForm />
-      </div>
+      </Shell.Content>
     </Shell>
   )
 }

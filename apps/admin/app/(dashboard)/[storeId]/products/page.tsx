@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Metadata } from "next"
 
 import { Button } from "ui"
+import Shell from "@/components/shell"
 
 export const metadata: Metadata = {
   title: "My Products"
@@ -13,12 +14,16 @@ export default async function ProductsPage({
   params: { storeId: string }
 }) {
   return (
-    <div>
-      <h1>Products</h1>
-      <p>All products currently on stock</p>
-      <Button asChild>
-        <Link href="products/new">Add product</Link>
-      </Button>
-    </div>
+    <Shell>
+      <Shell.Heading>Products</Shell.Heading>
+      <Shell.Description>
+        Currently available products in your store.
+      </Shell.Description>
+      <Shell.Content>
+        <Button asChild>
+          <Link href="products/new">Add Product</Link>
+        </Button>
+      </Shell.Content>
+    </Shell>
   )
 }

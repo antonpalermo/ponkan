@@ -1,20 +1,32 @@
 "use client"
 
-import { UploadButton } from "@/lib/uploadthing"
+import { Fragment, useCallback } from "react"
+import { useDropzone } from "react-dropzone"
+import { Input, Label } from "ui"
 
 export default function ProductImageDropzone() {
+  const onDrop = useCallback(files => {
+    console.log(files)
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
   return (
-    <UploadButton
-      endpoint="imageUploader"
-      onClientUploadComplete={res => {
-        // Do something with the response
-        console.log("Files: ", res)
-        alert("Upload Completed")
-      }}
-      onUploadError={(error: Error) => {
-        // Do something with the error.
-        alert(`ERROR! ${error.message}`)
-      }}
-    />
+    <Fragment>
+      <Label>Product Image</Label>
+      <div
+        {...getRootProps({
+          className:
+            "p-10 text-gray-500 border border-dashed border-gray-500 rounded-md my-3 text-center"
+        })}
+      >
+        <Input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div>
+    </Fragment>
   )
 }

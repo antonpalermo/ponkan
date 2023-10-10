@@ -14,7 +14,11 @@ export default function ProductImageDropzone() {
     })
   }, [])
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { "image/*": [".jpg", ".jpeg", ".png"] },
+    maxFiles: 2
+  })
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()

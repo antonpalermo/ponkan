@@ -1,3 +1,4 @@
+import cors from "cors"
 import express from "express"
 import productRoutes from "@src/routes/products.route"
 
@@ -5,6 +6,8 @@ async function main() {
   // initialize express app
   const app = express()
   const port = process.env.PORT || 5000
+  // cors
+  app.use(cors())
   // urlencoded use to parse formdata
   app.use(express.urlencoded({ extended: true }))
   // base router

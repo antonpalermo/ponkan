@@ -5,8 +5,8 @@
   "private": "true",
   "type": "commonjs",
   "scripts": {
-    "dev": "tsnd -r tsconfig-paths/register ./src/index.ts",
-    "start": "ts-node ./src/index.ts"
+    "dev": "pnpm dotenv nodemon ./dist/index.js",
+    "start": "node ./dist/index.js"
   },
   "author": "Anton Palermo <anpbusinessmail@gmail.com>",
   "license": "MIT",

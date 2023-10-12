@@ -20,12 +20,7 @@ async function upload(req: Request, res: Response) {
       await putS3Object(client, filename, file.buffer)
       //
       await prisma.images.create({
-        data: {
-          name: filename,
-          product: {
-            connect: { id: req.params.productId }
-          }
-        }
+        data: { name: filename }
       })
       // console log the message that the file is uploaded
       console.log(file.originalname, "uploaded")

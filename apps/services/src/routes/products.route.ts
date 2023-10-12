@@ -1,8 +1,8 @@
 import express, { Router } from "express"
 import multer from "multer"
 
-import handlers from "@src/handlers/products.handler"
-import middlewares from "@src/middlewares/products.middleware"
+import handlers from "../handlers/products.handler"
+import middlewares from "../middlewares/products.middleware"
 
 const router: Router = express.Router()
 

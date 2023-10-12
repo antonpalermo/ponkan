@@ -1,6 +1,6 @@
 import cors from "cors"
 import express from "express"
-import productRoutes from "@src/routes/products.route"
+import productRoutes from "./routes/products.route"
 
 async function main() {
   // initialize express app

@@ -3,7 +3,7 @@ import { S3Client } from "@aws-sdk/client-s3"
 import { customAlphabet } from "nanoid"
 import { PutObjectCommand } from "@aws-sdk/client-s3"
 
-import config from "@src/libs/config"
+import config from "../libs/config"
 
 export function generateObjectFilename(lenght = 25) {
   const id = customAlphabet(config.nanoAlphabet!, lenght)

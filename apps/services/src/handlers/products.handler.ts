@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 
 import { prisma } from "database"
-import { generateObjectFilename, putS3Object } from "@src/libs/helpers"
+import { generateObjectFilename, putS3Object } from "../libs/helpers"
 
 import client from "../libs/s3-client"
 
